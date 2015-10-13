@@ -1,2 +1,0 @@
-# DriveCarGL
-WebGL game
