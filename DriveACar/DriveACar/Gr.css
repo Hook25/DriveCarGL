@@ -1,0 +1,11 @@
+﻿body {
+    margin:0px;
+    border:0px;
+}
+div.top{
+    background-color:red;
+    width:100%;
+    height:20%;
+    position:absolute;
+    font-size:70%;
+}

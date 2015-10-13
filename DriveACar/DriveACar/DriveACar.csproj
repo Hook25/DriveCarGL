@@ -57,6 +57,8 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Game.js" />
+    <Content Include="Gr.css" />
     <Content Include="HtmlPage.html" />
     <Content Include="three.js" />
     <Content Include="three.min.js" />
