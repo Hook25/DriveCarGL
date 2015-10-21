@@ -68,6 +68,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Cubo\cuboDIM2.mtl" />
+    <Content Include="Cubo\cuboDIM2.obj" />
+    <Content Include="Cubo\cuboDIM3.mtl" />
+    <Content Include="Cubo\cuboDIM3.obj" />
+    <Content Include="Cubo\untitled.mtl" />
+    <Content Include="Cubo\untitled.obj" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
