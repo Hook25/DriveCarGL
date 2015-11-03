@@ -1,24 +1,34 @@
-﻿var canvas, ctx, scene, camera, renderer, car;
+﻿var canvas, ctx, scene, camera, renderer, car, light;
 function init() {
     canvas = document.getElementById("cv");
     ctx = canvas.getContext("2d");
     scene = new THREE.Scene(); //God
-    camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 1000);
+    camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 1, 1000);
     //camera... nothing more
+    light = new THREE.AmbientLight(0x404040);
+    scene.add(light);
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvas.width, canvas.height);
     document.body.appendChild(renderer.domElement);
     load_model();
     render();
 }
+
+function camera_gesture() {
+    //TODO
+}
+
 function load_model() {
-    var loader = new THREE.ObjectLoader();
+    var loader = new THREE.OBJLoader();
     loader.load(
             'Cube/cuboDIM3.obj',
             function (obj) {
-                scene.add(obj);
+                car = obj;
+                console.log([obj, car]);
+                scene.add(car);
             }
-        )
+    )
+    
 }
 function render() {
     requestAnimationFrame(render);
