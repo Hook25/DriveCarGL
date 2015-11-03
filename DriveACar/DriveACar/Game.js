@@ -24,6 +24,16 @@ function render() {
     requestAnimationFrame(render);
     renderer.render(scene, camera);
 }
+
+function car_factory(maxspeed, model) {
+    var car = {
+        max_speed: maxspeed,
+        model: model,
+
+    }
+    
+}
+
 function move_car(e) {
     if (e == 'w') {
         car.move_forward();
@@ -34,5 +44,4 @@ function move_car(e) {
     } else if (e == 'd') {
         car.slow_down();
     }
-
 }

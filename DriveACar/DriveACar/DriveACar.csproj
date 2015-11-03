@@ -59,7 +59,27 @@
   <ItemGroup>
     <Content Include="Game.js" />
     <Content Include="Gr.css" />
-    <Content Include="HtmlPage.html" />
+    <Content Include="index.html" />
+    <Content Include="Loaders\AssimpJSONLoader.js" />
+    <Content Include="Loaders\AWDLoader.js" />
+    <Content Include="Loaders\BabylonLoader.js" />
+    <Content Include="Loaders\BinaryLoader.js" />
+    <Content Include="Loaders\ColladaLoader.js" />
+    <Content Include="Loaders\DDSLoader.js" />
+    <Content Include="Loaders\MD2Loader.js" />
+    <Content Include="Loaders\MTLLoader.js" />
+    <Content Include="Loaders\OBJLoader.js" />
+    <Content Include="Loaders\OBJMTLLoader.js" />
+    <Content Include="Loaders\PDBLoader.js" />
+    <Content Include="Loaders\PLYLoader.js" />
+    <Content Include="Loaders\PVRLoader.js" />
+    <Content Include="Loaders\RGBELoader.js" />
+    <Content Include="Loaders\STLLoader.js" />
+    <Content Include="Loaders\SVGLoader.js" />
+    <Content Include="Loaders\TGALoader.js" />
+    <Content Include="Loaders\UTF8Loader.js" />
+    <Content Include="Loaders\VRMLLoader.js" />
+    <Content Include="Loaders\VTKLoader.js" />
     <Content Include="three.js" />
     <Content Include="three.min.js" />
     <Content Include="Web.config" />
@@ -68,12 +88,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Cubo\cuboDIM2.mtl" />
-    <Content Include="Cubo\cuboDIM2.obj" />
-    <Content Include="Cubo\cuboDIM3.mtl" />
-    <Content Include="Cubo\cuboDIM3.obj" />
-    <Content Include="Cubo\untitled.mtl" />
-    <Content Include="Cubo\untitled.obj" />
+    <Content Include="Cube\cuboDIM2.mtl" />
+    <Content Include="Cube\cuboDIM2.obj" />
+    <Content Include="Cube\cuboDIM3.mtl" />
+    <Content Include="Cube\cuboDIM3.obj" />
+    <Content Include="Cube\untitled.mtl" />
+    <Content Include="Cube\untitled.obj" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
