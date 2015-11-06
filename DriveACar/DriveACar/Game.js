@@ -1,4 +1,5 @@
 ﻿var canvas, ctx, scene, camera, renderer, car, light;
+var renderTime = 30;
 function init() {
     canvas = document.getElementById("cv");
     ctx = canvas.getContext("2d");
@@ -10,7 +11,7 @@ function init() {
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvas.width, canvas.height);
     document.body.appendChild(renderer.domElement);
-    load_model();
+    load_model(); 
     render();
 }
 
@@ -39,9 +40,15 @@ function car_factory(maxspeed, model) {
     var car = {
         max_speed: maxspeed,
         model: model,
-
+        speed: 0,
+        move_forward : move_forwardP,
+        accelleration : 25,
     }
-    
+    return car;
+}
+function move_forwardP() {
+    //speed = actualSpeed + a*renderTime(seconds)
+    this.speed = this.speed + this.accelleration * renderTime;
 }
 
 function move_car(e) {
