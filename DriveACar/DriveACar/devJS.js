@@ -85,8 +85,17 @@ function render() {
     camera.lookAt(scene.position);
 
     renderer.render(scene, camera);
-    car.model.position.x += car.speed;
-    car.model.position.y += car.speed;
+    if(car!=undefined){
+        car.model.position.x += car.speed;
+        car.model.position.y += car.speed;
+    
+
+        //apply all rotation
+        car.model.rotateY(car.delta_angle);
+        //end of rotations
+    } else {
+        console.log("Render called with undefined car")
+    }
 }
 function car_factory(maxspeed, model) {
     var car = {
@@ -95,26 +104,38 @@ function car_factory(maxspeed, model) {
         speed: 0,
         how_right: 0, //if this is set to 0 the car will just go straight
         move_forward: move_forwardP,
-        slow_down: move_slow,
+        move_slow: move_slowP,
+        move_right: move_rightP,
+        move_left:move_leftP,
         accelleration: 0.25,
+        angle: 0,
+        delta_angle:0,
     }
+    car.model.rotation.rotationAutoUpdate = true;
     return car;
 }
 function move_forwardP() {
     //speed = actualSpeed + a*renderTime(seconds)
     this.speed = this.speed + this.accelleration * render_time;
 }
-function move_slow() {
+function move_slowP() {
     this.speed = this.speed - this.accelleration * render_time;
 }
-function move_right() {
+function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
-    //going from -1 to 1
+    //going from 0 to 1
     this.how_right += 0.1;
-    if (this.how_right >= 0.9) { this.how_right = -1; console.log("Turned of 180°");}
+    if (this.how_right >= 1) { this.how_right = 0.1; console.log("Turned of 180°"); }
+    var tmp_a = this.how_right * 360; //from 0 ; 1 to 0 to 360°
+    this.delta_angle = this.angle - tmp_a;
+    this.angle = tmp_a;
 }
-function move_left() {
-    this.speed = this.speed + this.accelleration * render_time;
+function move_leftP() {
+    this.how_right -= 0.1;
+    if (this.how_right <= 0) { this.how_right = 0.9; console.log("Turned of 180°"); }
+    var tmp_a = this.how_right * 360; //from 0 ; 1 to 0 to 360°
+    this.delta_angle = this.angle - tmp_a;
+    this.angle = tmp_a;
 }
 function move_car(e) {
     if (e.keyCode == "W".charCodeAt(0) ) {
@@ -124,6 +145,6 @@ function move_car(e) {
     } else if (e.keyCode == 'D'.charCodeAt(0)) {
         car.move_right();
     } else if (e.keyCode == 'S'.charCodeAt(0)) {
-        car.slow_down();
+        car.move_slow();
     }
 }
