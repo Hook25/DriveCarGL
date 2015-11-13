@@ -34,13 +34,6 @@ function init() {
     var directionalLight = new THREE.DirectionalLight(0xffeedd);
     directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
-
-    //ground
-    var ground_g = new THREE.BoxGeometry(100, 5, 100);
-    var ground_m = new THREE.MeshNormalMaterial();
-    var ground = new THREE.Mesh(ground_g, ground_m);
-    scene.add(ground);
-
     // model
     var loader = new THREE.OBJLoader();
     loader.load('cube/cuboDIM2.obj', function (object) {
