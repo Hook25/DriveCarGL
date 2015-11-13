@@ -79,19 +79,19 @@ function animate() {
 }
 function render() {
 
-    camera.position.x += (mouseX - camera.position.x) * .05;
-    camera.position.y += (-mouseY - camera.position.y) * .05;
+    camera.position.x = car.model.position.x - 200;
+    camera.position.y = car.model.position.y - 200;
 
     camera.lookAt(scene.position);
 
     renderer.render(scene, camera);
-    if(car!=undefined){
-        car.model.position.x += car.speed;
-        car.model.position.y += car.speed;
-    
-
+    if (car != undefined) {
+        var how_x = (0.5 - car.how_right) * car.speed;
+        car.model.position.x += how_x;
+        car.model.position.z += car.speed - how_x;
         //apply all rotation
         car.model.rotateY(car.delta_angle);
+        car.delta_angle = 0;
         //end of rotations
     } else {
         console.log("Render called with undefined car")
@@ -124,16 +124,16 @@ function move_slowP() {
 function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
     //going from 0 to 1
-    this.how_right += 0.1;
+    this.how_right += 0.01;
     if (this.how_right >= 1) { this.how_right = 0.1; console.log("Turned of 180°"); }
-    var tmp_a = this.how_right * 360; //from 0 ; 1 to 0 to 360°
+    var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
 }
 function move_leftP() {
-    this.how_right -= 0.1;
+    this.how_right -= 0.01;
     if (this.how_right <= 0) { this.how_right = 0.9; console.log("Turned of 180°"); }
-    var tmp_a = this.how_right * 360; //from 0 ; 1 to 0 to 360°
+    var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
 }
