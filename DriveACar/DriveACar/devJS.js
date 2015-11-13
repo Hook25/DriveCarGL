@@ -93,9 +93,9 @@ function render() {
 
     renderer.render(scene, camera);
     if (car != undefined) {
-        var how_x = (0.5 - car.how_right) * car.speed;
-        car.model.position.x += car.speed - how_x;
-        car.model.position.z += car.speed - (car.speed - how_x);
+        var angle = car.how_right * Math.PI;
+        car.model.position.x += car.speed * Math.cos(angle);
+        car.model.position.z += car.speed *Math.sin(angle);
         //apply all rotation
         car.model.rotateY(car.delta_angle);
         car.delta_angle = 0;
@@ -132,14 +132,14 @@ function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
     //going from 0 to 1
     this.how_right += 0.01;
-    if (this.how_right >= 1) { this.how_right = 0; console.log("Turned of 180°"); }
+    if (this.how_right >= 1) { this.how_right = -1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
 }
 function move_leftP() {
     this.how_right -= 0.01;
-    if (this.how_right <= 0) { this.how_right = 1; console.log("Turned of 180°"); }
+    if (this.how_right <= -1) { this.how_right = 1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
