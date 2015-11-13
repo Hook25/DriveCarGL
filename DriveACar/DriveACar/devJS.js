@@ -34,6 +34,13 @@ function init() {
     var directionalLight = new THREE.DirectionalLight(0xffeedd);
     directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
+
+    //ground
+    var ground_g = new THREE.BoxGeometry(100, 5, 100);
+    var ground_m = new THREE.MeshNormalMaterial();
+    var groung = new THREE.Mesh(ground_g, ground_m);
+    scene.add(groung);
+
     // model
     var loader = new THREE.OBJLoader();
     loader.load('cube/cuboDIM2.obj', function (object) {
@@ -79,16 +86,16 @@ function animate() {
 }
 function render() {
 
-    camera.position.x = car.model.position.x - 200;
-    camera.position.y = car.model.position.y - 200;
+    camera.position.x = car.model.position.x + 200;
+    camera.position.y = car.model.position.y + 200;
 
     camera.lookAt(scene.position);
 
     renderer.render(scene, camera);
     if (car != undefined) {
         var how_x = (0.5 - car.how_right) * car.speed;
-        car.model.position.x += how_x;
-        car.model.position.z += car.speed - how_x;
+        car.model.position.x += car.speed - how_x;
+        car.model.position.z += car.speed - (car.speed - how_x);
         //apply all rotation
         car.model.rotateY(car.delta_angle);
         car.delta_angle = 0;
@@ -102,11 +109,11 @@ function car_factory(maxspeed, model) {
         max_speed: maxspeed,
         model: model,
         speed: 0,
-        how_right: 0, //if this is set to 0 the car will just go straight
+        how_right: 0.24, //if this is set to 0 the car will just go straight
         move_forward: move_forwardP,
         move_slow: move_slowP,
         move_right: move_rightP,
-        move_left:move_leftP,
+        move_left: move_leftP,
         accelleration: 0.25,
         angle: 0,
         delta_angle:0,
@@ -116,23 +123,23 @@ function car_factory(maxspeed, model) {
 }
 function move_forwardP() {
     //speed = actualSpeed + a*renderTime(seconds)
-    this.speed = this.speed + this.accelleration * render_time;
+    this.speed += this.accelleration * render_time;
 }
 function move_slowP() {
-    this.speed = this.speed - this.accelleration * render_time;
+    this.speed -= this.accelleration * render_time;
 }
 function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
     //going from 0 to 1
     this.how_right += 0.01;
-    if (this.how_right >= 1) { this.how_right = 0.1; console.log("Turned of 180°"); }
+    if (this.how_right >= 1) { this.how_right = 0; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
 }
 function move_leftP() {
     this.how_right -= 0.01;
-    if (this.how_right <= 0) { this.how_right = 0.9; console.log("Turned of 180°"); }
+    if (this.how_right <= 0) { this.how_right = 1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
