@@ -52,6 +52,15 @@ function init() {
         car = car_factory(200, object);
         scene.add(car.model)
     });
+	
+	loader.load('cube/City.obj', function (object) {
+
+        object.traverse(function (child) {
+        });
+
+        object.position.y = -180;
+        scene.add(object);
+    });
     // end model
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
