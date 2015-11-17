@@ -43,15 +43,17 @@ function init() {
 
     // model
     var loader = new THREE.OBJLoader();
-    loader.load('cube/cuboDIM2.obj', function (object) {
+    loader.load('Cube/Ferrari.obj', function (object) {
 
         object.traverse(function (child) {
         });
 
         object.position.y = -80;
+        //object.material = new THREE.MeshNormalMaterial(0xff0000);
         car = car_factory(200, object);
         scene.add(car.model)
     });
+    //car.model.material = new THREE.MeshDepthMeterial();
 	
 	loader.load('cube/City.obj', function (object) {
 
@@ -95,10 +97,8 @@ function animate() {
 }
 function render() {
 
-    camera.position.x = car.model.position.x + 200;
-    camera.position.y = car.model.position.y + 200;
-
-    camera.lookAt(scene.position);
+    //do_camera();
+    camera.lookAt(car.model.position);
 
     renderer.render(scene, camera);
     if (car != undefined) {
