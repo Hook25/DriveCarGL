@@ -94,8 +94,8 @@
     <Content Include="Cube\cuboDIM3.obj" />
     <Content Include="Cube\untitled.mtl" />
     <Content Include="Cube\untitled.obj" />
-    <Content Include="Cube\Ferrari.mtl" />
-    <Content Include="Cube\Ferrari.obj" />
+    <Content Include="ferrari\Ferrari.mtl" />
+    <Content Include="ferrari\Ferrari.obj" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
