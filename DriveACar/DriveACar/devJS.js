@@ -43,14 +43,25 @@ function init() {
 
     // model
     var loader = new THREE.OBJLoader();
-    loader.load('cube/cuboDIM2.obj', function (object) {
+    loader.load('Cube/Ferrari.obj', function (object) {
 
         object.traverse(function (child) {
         });
 
         object.position.y = -80;
+        //object.material = new THREE.MeshNormalMaterial(0xff0000);
         car = car_factory(200, object);
         scene.add(car.model)
+    });
+    //car.model.material = new THREE.MeshDepthMeterial();
+	
+	loader.load('cube/City.obj', function (object) {
+
+        object.traverse(function (child) {
+        });
+
+        object.position.y = -180;
+        scene.add(object);
     });
     // end model
     renderer = new THREE.WebGLRenderer();
@@ -86,16 +97,14 @@ function animate() {
 }
 function render() {
 
-    camera.position.x = car.model.position.x + 200;
-    camera.position.y = car.model.position.y + 200;
-
-    camera.lookAt(scene.position);
+    //do_camera();
+    camera.lookAt(car.model.position);
 
     renderer.render(scene, camera);
     if (car != undefined) {
-        var how_x = (0.5 - car.how_right) * car.speed;
-        car.model.position.x += car.speed - how_x;
-        car.model.position.z += car.speed - (car.speed - how_x);
+        var angle = car.how_right * Math.PI;
+        car.model.position.x += car.speed * Math.cos(angle);
+        car.model.position.z += car.speed *Math.sin(angle);
         //apply all rotation
         car.model.rotateY(car.delta_angle);
         car.delta_angle = 0;
@@ -132,14 +141,14 @@ function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
     //going from 0 to 1
     this.how_right += 0.01;
-    if (this.how_right >= 1) { this.how_right = 0; console.log("Turned of 180°"); }
+    if (this.how_right >= 1) { this.how_right = -1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
 }
 function move_leftP() {
     this.how_right -= 0.01;
-    if (this.how_right <= 0) { this.how_right = 1; console.log("Turned of 180°"); }
+    if (this.how_right <= -1) { this.how_right = 1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
