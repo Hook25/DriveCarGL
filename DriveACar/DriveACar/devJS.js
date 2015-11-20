@@ -28,27 +28,23 @@ function init() {
 
     scene = new THREE.Scene();
 
-    var ambient = new THREE.AmbientLight(0x101030);
+    var ambient = new THREE.AmbientLight(0xffffff);
     scene.add(ambient);
 
     var directionalLight = new THREE.DirectionalLight(0xffeedd);
     directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
 
-    //ground
-    var ground_g = new THREE.BoxGeometry(100, 5, 100);
-    var ground_m = new THREE.MeshNormalMaterial();
-    var groung = new THREE.Mesh(ground_g, ground_m);
-    scene.add(groung);
 
     // model
     var loader = new THREE.OBJMTLLoader();
-    loader.load('Cube/cuboDIM2.obj','Cube/cuboDIM2.mtl', function (object) {
+    loader.load('ferrari/Ferrari.obj', 'ferrari/Ferrari.mtl', function (object) {
 
         object.traverse(function (child) {
         });
 
         object.position.y = -80;
+        object.scale.set(6, 6, 6);
         //object.material = new THREE.MeshNormalMaterial(0xff0000);
         car = car_factory(200, object);
         scene.add(car.model)
@@ -118,7 +114,7 @@ function car_factory(maxspeed, model) {
         max_speed: maxspeed,
         model: model,
         speed: 0,
-        how_right: 0.24, //if this is set to 0 the car will just go straight
+        how_right: 0, //if this is set to 0 the car will just go straight
         move_forward: move_forwardP,
         move_slow: move_slowP,
         move_right: move_rightP,
