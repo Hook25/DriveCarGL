@@ -96,6 +96,8 @@
     <Content Include="Cube\untitled.obj" />
     <Content Include="ferrari\Ferrari.mtl" />
     <Content Include="ferrari\Ferrari.obj" />
+    <Content Include="Cube\City.mtl" />
+    <Content Include="Cube\City.obj" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
