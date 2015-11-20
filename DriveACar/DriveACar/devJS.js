@@ -47,7 +47,7 @@ function init() {
         object.scale.set(6,6,6);
         object.rotateY(Math.PI * 0.5)
         //object.material = new THREE.MeshNormalMaterial(0xff0000);
-        car = car_factory(200, object);
+        car = car_factory(6, object);
         scene.add(car.model)
     });
     //car.model.material = new THREE.MeshDepthMeterial();
@@ -95,7 +95,6 @@ function render() {
 
     //do_camera();
     camera.lookAt(car.model.position);
-
     renderer.render(scene, camera);
     if (car != undefined) {
         var angle = car.how_right * Math.PI;
@@ -104,9 +103,9 @@ function render() {
         //apply all rotation
         car.model.rotateY(car.delta_angle);
         car.delta_angle = 0;
-        if (car.slow_down) { car.speed *= 0.9; }
+        if (car.slow_down < 0) { car.speed *= 0.99; } 
+        car.slow_down--;
         //end of rotations
-        car.slow_down = true;
     } else {
         console.log("Render called with undefined car")
     }
@@ -130,11 +129,12 @@ function car_factory(maxspeed, model) {
 }
 function move_forwardP() {
     //speed = actualSpeed + a*renderTime(seconds)
-    this.speed = this.speed <=200 ?((this.speed * this.accelleration * render_time) + 0.1):200;
-    this.slow_down = false;
+    this.speed = this.speed < this.max_speed ?((this.speed * this.accelleration * render_time) + 1):this.max_speed;
+    this.slow_down = 25;
+
 }
 function move_slowP() {
-    this.speed -= this.accelleration * render_time;
+    this.speed *= 0.79;
 }
 function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
