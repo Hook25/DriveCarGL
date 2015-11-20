@@ -57,9 +57,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Cube\map\ang1.jpg" />
-    <Content Include="Cube\map\cty1.jpg" />
-    <Content Include="Cube\map\cty2x.jpg" />
+    <Content Include="Cube\Maps\ang1.jpg" />
+    <Content Include="Cube\Maps\cty1.jpg" />
+    <Content Include="Cube\Maps\cty2x.jpg" />
     <Content Include="devJS.js" />
     <Content Include="Gr.css" />
     <Content Include="index.html" />

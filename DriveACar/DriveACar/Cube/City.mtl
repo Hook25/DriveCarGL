@@ -6,7 +6,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/cty1.jpg
+map_Kd Maps/cty1.jpg
 
 newmtl default_sidewalks
 d 1
@@ -16,7 +16,7 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/ang1.jpg
+map_Kd Maps/ang1.jpg
 
 newmtl default_bldgs2
 d 1
@@ -26,8 +26,8 @@ Ka 0 0 0
 Kd 1 1 1
 Ks 1 1 1
 Km 0
-map_Kd /Maps/cty2x.jpg
-map_Bump /Maps/default_b.jpg
+map_Kd Maps/cty2x.jpg
+map_Bump Maps/default_b.jpg
 
 newmtl Default
 d 1
