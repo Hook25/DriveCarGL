@@ -96,7 +96,7 @@ function render() {
     //do_camera();
     camera.lookAt(car.model.position);
     renderer.render(scene, camera);
-    if (car != undefined) {
+    if (car != undefined ) {
         var angle = car.how_right * Math.PI;
         car.model.position.x += car.speed * Math.cos(angle);
         car.model.position.z += car.speed *Math.sin(angle);
@@ -122,7 +122,8 @@ function car_factory(maxspeed, model) {
         move_left: move_leftP,
         accelleration: 1,
         angle: 0,
-        delta_angle:0,
+        delta_angle: 0,
+        
     }
     car.model.rotation.rotationAutoUpdate = true;
     return car;
@@ -139,6 +140,7 @@ function move_slowP() {
 function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
     //going from 0 to 1
+    if (car.speed < 0.2) return;
     this.how_right += 0.01;
     if (this.how_right >= 1) { this.how_right = -1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
@@ -146,6 +148,7 @@ function move_rightP() {
     this.angle = tmp_a;
 }
 function move_leftP() {
+    if (car.speed < 0.2) return;
     this.how_right -= 0.01;
     if (this.how_right <= -1) { this.how_right = 1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
