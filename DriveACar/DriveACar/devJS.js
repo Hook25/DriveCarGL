@@ -1,4 +1,5 @@
 // JavaScript source code
+var keyboard = new THREEx.KeyboardState();
 render_time = 1;
 var container;
 
@@ -65,7 +66,7 @@ function init() {
     renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
-    document.addEventListener('keydown', move_car, false);
+    //document.addEventListener('keydown', move_car, false);
     window.addEventListener('resize', onWindowResize, false);
 }
 function onWindowResize() {
@@ -94,6 +95,7 @@ function animate() {
 function render() {
 
     //do_camera();
+    move_car(keyboard)
     camera.lookAt(car.model.position);
     renderer.render(scene, camera);
     if (car != undefined ) {
@@ -135,7 +137,11 @@ function move_forwardP() {
 
 }
 function move_slowP() {
-    this.speed *= 0.79;
+    if(this.speed >1)
+        this.speed *= 0.79;
+    else {
+        this.speed -= 1;
+    }
 }
 function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
@@ -156,13 +162,16 @@ function move_leftP() {
     this.angle = tmp_a;
 }
 function move_car(e) {
-    if (e.keyCode == "W".charCodeAt(0) ) {
+    if (e.pressed("W")) {
         car.move_forward();
-    } else if (e.keyCode == 'A'.charCodeAt(0)) {
+    }
+    if (e.pressed("A")) {
         car.move_left();
-    } else if (e.keyCode == 'D'.charCodeAt(0)) {
+    }
+    if (e.pressed("D")) {
         car.move_right();
-    } else if (e.keyCode == 'S'.charCodeAt(0)) {
+    }
+    if (e.pressed("S")) {
         car.move_slow();
     }
 }
