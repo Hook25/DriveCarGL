@@ -2,7 +2,7 @@
 var keyboard = new THREEx.KeyboardState();
 render_time = 1;
 var container;
-
+var controller;
 var car;
 
 var camera, scene, renderer;
@@ -18,7 +18,7 @@ animate();
 
 
 function init() {
-
+    controller = navigator.getGamepads()[0];
     container = document.createElement('div');
     document.body.appendChild(container);
 
@@ -111,6 +111,10 @@ function render() {
     } else {
         console.log("Render called with undefined car")
     }
+    controller_key_active();
+}
+function controller_key_active() {
+
 }
 function car_factory(maxspeed, model) {
     var car = {
@@ -140,13 +144,14 @@ function move_slowP() {
     if(this.speed >1)
         this.speed *= 0.79;
     else {
-        this.speed -= 1;
+        this.speed = Math.abs(this.speed) < this.max_speed * 0.3 ? (this.speed - 0.1) : -this.max_speed * 0.3;
+        console.log([this.speed, this.max_speed])
     }
 }
 function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
     //going from 0 to 1
-    if (car.speed < 0.2) return;
+    if (car.speed < 0.2 && car.speed > -0.2 ) return;
     this.how_right += 0.01;
     if (this.how_right >= 1) { this.how_right = -1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
@@ -154,7 +159,7 @@ function move_rightP() {
     this.angle = tmp_a;
 }
 function move_leftP() {
-    if (car.speed < 0.2) return;
+    if (car.speed < 0.2 && car.speed > -0.2) return;
     this.how_right -= 0.01;
     if (this.how_right <= -1) { this.how_right = 1; console.log("Turned of 180°"); }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
