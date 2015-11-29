@@ -21,23 +21,28 @@ function init() {
     controller = navigator.getGamepads()[0];
     container = document.createElement('div');
     document.body.appendChild(container);
-
+    //creating camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
     camera.position.z = 200;
-
-    // scene
-
+    // scene + light
     scene = new THREE.Scene();
-
     var ambient = new THREE.AmbientLight(0xffffff);
     scene.add(ambient);
-
     var directionalLight = new THREE.DirectionalLight(0xffeedd);
     directionalLight.position.set(0, 0, 1);
     scene.add(directionalLight);
-
-
     // model
+    load_models();
+    //render stuff
+    renderer = new THREE.WebGLRenderer();
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    container.appendChild(renderer.domElement);
+    //document.addEventListener('keydown', move_car, false);
+    window.addEventListener('resize', onWindowResize, false);
+}
+
+function load_models() {
     var loader = new THREE.OBJMTLLoader();
     loader.load('ferrari/Ferrari.obj', 'ferrari/Ferrari.mtl', function (object) {
 
@@ -45,15 +50,15 @@ function init() {
         });
 
         object.position.y = -80;
-        object.scale.set(6,6,6);
+        object.scale.set(6, 6, 6);
         object.rotateY(Math.PI * 0.5)
         //object.material = new THREE.MeshNormalMaterial(0xff0000);
         car = car_factory(6, object);
         scene.add(car.model)
     });
     //car.model.material = new THREE.MeshDepthMeterial();
-	
-	loader.load('cube/City.obj','Cube/City.mtl', function (object) {
+
+    loader.load('cube/City.obj', 'Cube/City.mtl', function (object) {
 
         object.traverse(function (child) {
         });
@@ -61,13 +66,6 @@ function init() {
         object.position.y = -125;
         scene.add(object);
     });
-    // end model
-    renderer = new THREE.WebGLRenderer();
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    container.appendChild(renderer.domElement);
-    //document.addEventListener('keydown', move_car, false);
-    window.addEventListener('resize', onWindowResize, false);
 }
 function onWindowResize() {
 
