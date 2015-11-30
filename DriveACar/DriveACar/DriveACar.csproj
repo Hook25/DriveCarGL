@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,6 +58,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Collision detection.js" />
     <Content Include="Cube\Maps\ang1.jpg" />
     <Content Include="Cube\Maps\cty1.jpg" />
     <Content Include="Cube\Maps\cty2x.jpg" />
@@ -85,6 +87,9 @@
     <Content Include="Loaders\VTKLoader.js" />
     <Content Include="three.js" />
     <Content Include="three.min.js" />
+    <Content Include="threex.collider.js" />
+    <Content Include="threex.colliderhelper.js" />
+    <Content Include="threex.collidersystem.js" />
     <Content Include="threex.keyboardstate.js" />
     <Content Include="Web.config" />
   </ItemGroup>
