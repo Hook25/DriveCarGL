@@ -51,17 +51,14 @@ function load_models() {
         object.scale.set(6, 6, 6);
         object.rotateY(Math.PI * 0.49) //random 0.1 making stuff better
         //object.material = new THREE.MeshNormalMaterial(0xff0000);
-        car = car_factory(10, object);
+        car = car_factory(13, object);
         scene.add(car.model)
     });
     //car.model.material = new THREE.MeshDepthMeterial();
 
     loader.load('cube/City.obj', 'Cube/City.mtl', function (object) {
-
-        object.traverse(function (child) {
-        });
-
         object.position.y = -125;
+        object.position.x = 300;
         scene.add(object);
     });
 }
