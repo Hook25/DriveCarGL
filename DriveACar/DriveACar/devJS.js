@@ -1,6 +1,5 @@
 // JavaScript source code
 var keyboard = new THREEx.KeyboardState();
-render_time = 1;
 var container;
 var controller;
 var car;
@@ -23,7 +22,7 @@ function init() {
     document.body.appendChild(container);
     //creating camera
     camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
-    camera.position.z = 200;
+    camera.position.z = 250;
     // scene + light
     scene = new THREE.Scene();
     var ambient = new THREE.AmbientLight(0xffffff);
@@ -41,7 +40,6 @@ function init() {
     //document.addEventListener('keydown', move_car, false);
     window.addEventListener('resize', onWindowResize, false);
 }
-
 function load_models() {
     var loader = new THREE.OBJMTLLoader();
     loader.load('ferrari/Ferrari.obj', 'ferrari/Ferrari.mtl', function (object) {
@@ -49,11 +47,11 @@ function load_models() {
         object.traverse(function (child) {
         });
 
-        object.position.y = -80;
+        object.position.y = -81;
         object.scale.set(6, 6, 6);
-        object.rotateY(Math.PI * 0.5)
+        object.rotateY(Math.PI * 0.49) //random 0.1 making stuff better
         //object.material = new THREE.MeshNormalMaterial(0xff0000);
-        car = car_factory(6, object);
+        car = car_factory(10, object);
         scene.add(car.model)
     });
     //car.model.material = new THREE.MeshDepthMeterial();
@@ -85,32 +83,26 @@ function onDocumentMouseMove(event) {
 
 }
 function animate() {
-
     requestAnimationFrame(animate);
     render();
 
 }
 function render() {
-
     //do_camera();
     move_car(keyboard)
     camera.lookAt(car.model.position);
     renderer.render(scene, camera);
-    if (car != undefined ) {
         var angle = car.how_right * Math.PI;
         car.model.position.x += car.speed * Math.cos(angle);
-        car.model.position.z += car.speed *Math.sin(angle);
+        car.model.position.z += car.speed * Math.sin(angle);
         //apply all rotation
         car.model.rotateY(car.delta_angle);
         car.delta_angle = 0;
-        if (car.slow_down < 0) { car.speed *= 0.99; } 
+        if (car.slow_down < 0) { car.speed *= 0.99; car.slow_down += Math.log(car.speed); }
         car.slow_down--;
         //end of rotations
-    } else {
-        console.log("Render called with undefined car")
-    }
     controller_key_active();
-    camera.position.set(car.model.position.x-500,car.model.position.y+500,car.model.position.z)
+    camera.position.set(car.model.position.x - car.camera_distance * Math.cos(angle), camera.position.y , car.model.position.z - car.camera_distance * Math.sin(angle))
 }
 function controller_key_active() {
 
@@ -125,17 +117,18 @@ function car_factory(maxspeed, model) {
         move_slow: move_slowP,
         move_right: move_rightP,
         move_left: move_leftP,
-        accelleration: 1,
+        accelleration: 1.11,
         angle: 0,
         delta_angle: 0,
-        
+        camera_distance : 200,
     }
     car.model.rotation.rotationAutoUpdate = true;
     return car;
 }
 function move_forwardP() {
-    //speed = actualSpeed + a*renderTime(seconds)
-    this.speed = this.speed < this.max_speed ?((this.speed * this.accelleration * render_time) + 1):this.max_speed;
+    if (this.speed > -0.5 && this.speed < 0) { this.speed -= this.speed; console.log("turned"); return;}
+    if (this.speed < 0) { this.speed /= 1.2; console.log("back not"); return;}
+    this.speed = this.speed < this.max_speed ?(this.speed==0?0.1:this.speed * this.accelleration):this.max_speed;
     this.slow_down = 25;
 
 }
@@ -144,12 +137,11 @@ function move_slowP() {
         this.speed *= 0.79;
     else {
         this.speed = Math.abs(this.speed) < this.max_speed * 0.3 ? (this.speed - 0.1) : -this.max_speed * 0.3;
-        console.log([this.speed, this.max_speed])
     }
 }
 function move_rightP() {
     //first design of turning, how the car is turned is defined by a number
-    //going from 0 to 1
+    //going from -1 to 1
     if (this.speed < 0.2 && this.speed > -0.2 ) return;
     this.how_right += (0.01 * this.speed / this.max_speed);
     if (this.how_right >= 1) { this.how_right = -1; console.log("Turned of 180°"); }
