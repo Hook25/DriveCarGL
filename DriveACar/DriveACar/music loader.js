@@ -54,5 +54,5 @@
 }
 var folder = "mp3";
 var number_of_songs_in_the_folder = 10;
-var v = new player(number_of_songs_in_the_folder,mp3);
+var v = new player(number_of_songs_in_the_folder,folder);
 
