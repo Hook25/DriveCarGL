@@ -85,6 +85,7 @@
     <Content Include="Loaders\UTF8Loader.js" />
     <Content Include="Loaders\VRMLLoader.js" />
     <Content Include="Loaders\VTKLoader.js" />
+    <Content Include="music loader.js" />
     <Content Include="three.js" />
     <Content Include="three.min.js" />
     <Content Include="threex.collider.js" />
