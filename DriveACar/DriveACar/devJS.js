@@ -1,23 +1,18 @@
 // JavaScript source code
 var keyboard = new THREEx.KeyboardState();
-var container;
-var controller;
-var car;
-
+var container,car,controller
 var camera, scene, renderer;
-
 var mouseX = 0, mouseY = 0;
-
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
-
+var delay_no_lag = false;
 
 init();
 animate();
 
 
 function init() {
-    controller = navigator.getGamepads()[0];
+    controller_key_active();
     container = document.createElement('div');
     document.body.appendChild(container);
     //creating camera
@@ -27,9 +22,6 @@ function init() {
     scene = new THREE.Scene();
     var ambient = new THREE.AmbientLight(0xffffff);
     scene.add(ambient);
-    var directionalLight = new THREE.DirectionalLight(0xffeedd);
-    directionalLight.position.set(0, 0, 1);
-    scene.add(directionalLight);
     // model
     load_models();
     //render stuff
@@ -98,11 +90,37 @@ function render() {
         if (car.slow_down < 0) { car.speed *= 0.99; car.slow_down += Math.log(car.speed); }
         car.slow_down--;
         //end of rotations
-    controller_key_active();
     camera.position.set(car.model.position.x - car.camera_distance * Math.cos(angle), camera.position.y , car.model.position.z - car.camera_distance * Math.sin(angle))
 }
 function controller_key_active() {
+    controller = new Gamepad();
+    controller.init();
+    controller.bind(Gamepad.Event.BUTTON_DOWN, function (e) {
+        console.log("s");
+        if (e.control == "FACE_1" || e.control == "RIGHT_BOTTOM_SHOULDER") {
+            controller.move_forward = true;
+        } else if (e.control == "FACE_3" || e.control == "LEFT_BOTTOM_SHOULDER") {
+            controller.slow_down = true;
+        } else if (e.control == "DPAD_LEFT") {
+            controller.move_left = true;
+        } else if (e.control == "DPAD_RIGHT") {
+            controller.move_right = true;
+        }
+        
+    });
+    controller.bind(Gamepad.Event.BUTTON_UP, function (e) {
+        console.log("s");
+        if (e.control == "FACE_1" || e.control == "RIGHT_BOTTOM_SHOULDER") {
+            controller.move_forward = false;
+        } else if (e.control == "FACE_3" || e.control == "LEFT_BOTTOM_SHOULDER") {
+            controller.slow_down = false;
+        } else if (e.control == "DPAD_LEFT") {
+            controller.move_left = false;
+        } else if (e.control == "DPAD_RIGHT") {
+            controller.move_right = false;
+        }
 
+    });
 }
 function car_factory(maxspeed, model) {
     var car = {
@@ -155,16 +173,16 @@ function move_leftP() {
     this.angle = tmp_a;
 }
 function move_car(e) {
-    if (e.pressed("W")) {
+    if (e.pressed("W") || controller.move_forward) {
         car.move_forward();
     }
-    if (e.pressed("A")) {
+    if (e.pressed("A") || controller.move_left) {
         car.move_left();
     }
-    if (e.pressed("D")) {
+    if (e.pressed("D") || controller.move_right) {
         car.move_right();
     }
-    if (e.pressed("S")) {
+    if (e.pressed("S") || controller.move_slow) {
         car.move_slow();
     }
 }
