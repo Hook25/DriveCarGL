@@ -12,13 +12,22 @@
         <script src="threex.collidersystem.js"></script>-->
         <!--<script src="music loader.js"></script>-->
         <script src="gamepad.min.js"></script>
-         <!--<link rel="stylesheet" type="text/css" href="Gr.css" /> -->
+        <link rel="stylesheet" type="text/css" href="Gr.css" />
+        <script>
+            function loading1() {
+                window.setTimeout(function () {
+                    document.getElementById("load").style.opacity = 0;
+                    window.setTimeout(function () {
+                        document.body.removeChild(document.getElementById("load"));
+                    }, 1000);
+                },4000);
+            }
+        </script>
     </head>
-    <body>
+    <body onload="loading1()">
         <script src="devJS.js"></script> <!--onload bug?!?-->
-        <div style="display:none">Hell fking o! </div>
-        <div class="canvas">
-            <canvas id="cv">No canvas supported</canvas>
+        <div class="loading"id="load">
+            <h1 class="loadingTXT">LOADING</h1>
         </div>
     </body>
 </html>

@@ -1,22 +1,68 @@
 ﻿body {
     margin:0px;
     border:0px;
+    overflow:hidden;
+    background-color:black;
 }
-div.top{
-    background-color:red;
-    width:100%;
-    height:20%;
-    position:absolute;
-    font-size:100%;
-}
-#cv{
+.loading{
     background-color:black;
     width:100%;
     height:100%;
-}
-div.canvas{
-    top:19%;
     position:absolute;
-    width:100%;
-    height:80%;
+    z-index:1;
+    color:white;
+    top:0px;
+    left:0px;
+    opacity: 1;
+           transition: opacity .95s ease-in-out;
+           -moz-transition: opacity .95s ease-in-out;
+           -webkit-transition: opacity .95s ease-in-out;
+    display:table;
+}
+.canvas{
+    z-index:2;
+}
+.loadingTXT{
+    font-family: Magneto;
+    font-size:7em;
+    display: table-cell; 
+    vertical-align: middle; 
+    text-align: center; 
+    color:red;
+
+    -webkit-animation: color-change 0.9s infinite;
+    -moz-animation: color-change 0.9s infinite;
+    -o-animation: color-change 0.9s infinite;
+    -ms-animation: color-change 0.9s infinite;
+    animation: color-change 0.9s infinite;
+}
+@-webkit-keyframes color-change {
+    0% { color: red; }
+    33% { color: orange; }
+    66% { color: yellow; }
+    100% { color: orange; }
+}
+@-moz-keyframes color-change {
+    0% { color: red; }
+    33% { color: orange; }
+    66% { color: yellow; }
+    100% { color: orange; }
+}
+@-ms-keyframes color-change {
+    0% { color: red; }
+    33% { color: orange; }
+    66% { color: yellow; }
+    100% { color: orange; }
+}
+@-o-keyframes color-change {
+    0% { color: red; }
+    33% { color: orange; }
+    66% { color: yellow; }
+    100% { color: orange; }
+}
+@keyframes color-change {
+    0% { color: red; }
+    33% { color: orange; }
+    66% { color: yellow; }
+    100% { color: orange; }
 }

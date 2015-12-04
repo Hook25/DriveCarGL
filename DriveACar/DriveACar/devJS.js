@@ -159,7 +159,7 @@ function move_rightP() {
     //going from -1 to 1
     if (this.speed < 0.2 && this.speed > -0.2 ) return;
     this.how_right += (0.01 * this.speed / this.max_speed);
-    if (this.how_right >= 1) { this.how_right = -1; console.log("Turned of 180°"); }
+    if (this.how_right >= 1) { this.how_right = -1; }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
@@ -167,7 +167,7 @@ function move_rightP() {
 function move_leftP() {
     if (this.speed < 0.2 && this.speed > -0.2) return;
     this.how_right -= (0.01 * this.speed/this.max_speed);
-    if (this.how_right <= -1) { this.how_right = 1; console.log("Turned of 180°"); }
+    if (this.how_right <= -1) { this.how_right = 1; }
     var tmp_a = this.how_right * Math.PI; //from 0 ; 1 to 0 to 360°
     this.delta_angle = this.angle - tmp_a;
     this.angle = tmp_a;
@@ -176,13 +176,12 @@ function move_car(e) {
     if (e.pressed("W") || controller.move_forward) {
         car.move_forward();
     }
-    if (e.pressed("A") || controller.move_left) {
-        car.move_left();
-    }
-    if (e.pressed("D") || controller.move_right) {
-        car.move_right();
-    }
     if (e.pressed("S") || controller.move_slow) {
         car.move_slow();
+    }
+    if (e.pressed("A") || controller.move_left) {
+        car.move_left();
+    }else if (e.pressed("D") || controller.move_right) {
+        car.move_right();
     }
 }
