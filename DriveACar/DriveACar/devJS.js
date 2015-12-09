@@ -78,7 +78,7 @@ function animate() {
 }
 function render() {
     //do_camera();
-    move_car(keyboard)
+    move_car(keyboard);
     if (car) { camera.lookAt(car.model.position); } else { return; }
     renderer.render(scene, camera);
         var angle = car.how_right * Math.PI;
@@ -87,7 +87,7 @@ function render() {
         //apply all rotation
         car.model.rotateY(car.delta_angle);
         car.delta_angle = 0;
-        if (car.slow_down < 0) { car.speed *= 0.99; car.slow_down += Math.log(car.speed); }
+        if (car.slow_down < 0) { car.speed = (car.speed<=0.1 && car.speed > 0? 0 : car.speed*0.99); car.slow_down += Math.log(car.speed); }
         car.slow_down--;
         //end of rotations
     camera.position.set(car.model.position.x - car.camera_distance * Math.cos(angle), camera.position.y , car.model.position.z - car.camera_distance * Math.sin(angle))
