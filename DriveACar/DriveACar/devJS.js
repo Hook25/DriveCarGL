@@ -6,6 +6,7 @@ var mouseX = 0, mouseY = 0;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 var delay_no_lag = false;
+var v;
 
 init();
 animate();
@@ -32,6 +33,7 @@ function init() {
     //document.addEventListener('keydown', move_car, false);
     window.addEventListener('resize', onWindowResize, false);
 }
+
 function load_models() {
     var loader = new THREE.OBJMTLLoader();
     loader.load('ferrari/Ferrari.obj', 'ferrari/Ferrari.mtl', function (object) {
@@ -39,9 +41,9 @@ function load_models() {
         object.traverse(function (child) {
         });
 
-        object.position.y = -81;
+        object.position.y = -80;
         object.scale.set(6, 6, 6);
-        object.rotateY(Math.PI * 0.49) //random 0.1 making stuff better
+        object.rotateY(Math.PI * 0.50) //fixed
         //object.material = new THREE.MeshNormalMaterial(0xff0000);
         car = car_factory(10, object);
         scene.add(car.model)
@@ -50,7 +52,8 @@ function load_models() {
 
     loader.load('cube/City.obj', 'Cube/City.mtl', function (object) {
         object.position.y = -125;
-        object.position.x = 300;
+        object.position.x = -100;
+        city = object;
         scene.add(object);
     });
 }
